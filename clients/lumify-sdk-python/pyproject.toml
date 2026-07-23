@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lumify-sdk"
+version = "0.2.0"
+description = "Official Python SDK for the Lumify agent-ready sports intelligence API (schedules, live scores, odds, betting splits, and AI bet intelligence)."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Lumify AI", email = "dev@lumify.ai" }]
+keywords = [
+    "lumify",
+    "sports",
+    "sports-data",
+    "odds",
+    "betting",
+    "sdk",
+    "ai-agents",
+    "sports-api",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+# Zero runtime dependencies for the sync client — the transport is stdlib
+# urllib, signatures use stdlib hmac/hashlib. Mirrors @lumifyai/sdk's
+# zero-dependency design. `lumify.aio.AsyncLumify` needs httpx (see the
+# `asyncio` extra below) — importing `lumify` itself never pulls it in.
+dependencies = []
+
+[project.urls]
+Homepage = "https://lumify.ai/docs"
+Documentation = "https://lumify.ai/docs/reference"
+Repository = "https://github.com/lumifyai/lumify"
+Issues = "https://github.com/lumifyai/lumify/issues"
+
+[project.optional-dependencies]
+asyncio = ["httpx>=0.24"]
+dev = ["pytest>=7", "pytest-asyncio>=0.21", "httpx>=0.24"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["lumify"]
+
+[tool.hatch.build.targets.sdist]
+include = ["lumify", "README.md", "LICENSE", "scripts", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

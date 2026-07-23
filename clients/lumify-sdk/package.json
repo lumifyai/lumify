@@ -1,0 +1,56 @@
+{
+  "name": "@lumifyai/sdk",
+  "version": "0.2.0",
+  "description": "Official TypeScript/JavaScript SDK for the Lumify agent-ready sports intelligence API (schedules, live scores, odds, betting splits, and AI bet intelligence).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "gen:models": "node scripts/gen-models.mjs",
+    "gen:models:check": "node scripts/gen-models.mjs --check",
+    "pretest": "npm run build",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.0"
+  },
+  "keywords": [
+    "lumify",
+    "sports",
+    "sports-data",
+    "odds",
+    "betting",
+    "sdk",
+    "ai-agents",
+    "sports-api"
+  ],
+  "homepage": "https://lumify.ai/docs",
+  "bugs": {
+    "url": "https://github.com/lumifyai/lumify/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumifyai/lumify.git",
+    "directory": "clients/lumify-sdk"
+  },
+  "license": "MIT"
+}

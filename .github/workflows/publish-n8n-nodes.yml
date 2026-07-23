@@ -1,0 +1,92 @@
+# Publishes clients/n8n-nodes-lumify to npm with a provenance attestation.
+#
+# This workflow ships in the PUBLIC repo (lumifyai/lumify) so the provenance
+# attestation matches package.json "repository": "github.com/lumifyai/lumify".
+#
+# Synced from the private monorepo via scripts/publish-public-repo.sh.
+#
+# ─── ONE-TIME SETUP ────────────────────────────────────────────────────────────
+#
+# Option A — OIDC Trusted Publishing (recommended):
+#   1. npmjs.com → n8n-nodes-lumify → Settings → Trusted Publishers → Add
+#   2. GitHub Actions publisher:
+#        Repository owner: lumifyai
+#        Repository name:  lumify
+#        Workflow name:    publish-n8n-nodes.yml
+#        Environment:      (leave blank)
+#        Allowed actions:  Allow npm publish
+#
+# Option B — NPM_TOKEN secret on lumifyai/lumify (granular publish token).
+#   Provenance still requires id-token: write (OIDC) even with a token.
+#
+# Requires npm CLI ≥ 11.5.1 (Trusted Publishing / OIDC).
+name: Publish n8n-nodes-lumify
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "n8n-nodes-v*.*.*"
+
+# Top-level permissions so the job always receives id-token: write.
+# (Job-only permissions were not appearing on this orphan-snapshot repo.)
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: publish-n8n-nodes
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm (with provenance)
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    defaults:
+      run:
+        working-directory: clients/n8n-nodes-lumify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Trusted Publishing needs Node ≥ 22.14 and npm ≥ 11.5.1.
+          node-version: "24"
+          # Do NOT set registry-url — empty NODE_AUTH_TOKEN blocks OIDC.
+
+      - name: Upgrade npm for Trusted Publishing
+        run: npm install -g npm@latest
+
+      - name: Verify OIDC is available
+        working-directory: .
+        run: |
+          echo "node=$(node -v) npm=$(npm -v)"
+          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ] || [ -z "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]; then
+            echo "::error::id-token OIDC env vars are missing. Check workflow permissions: id-token: write"
+            exit 1
+          fi
+          echo "OIDC id-token exchange is available."
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Build, lint, and test
+        run: |
+          npm run build
+          npm run lint
+          npm test
+
+      - name: Publish with provenance
+        run: |
+          if [ -n "${NPM_TOKEN:-}" ]; then
+            npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          fi
+          npm publish --provenance --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-lumify"
+version = "0.1.0"
+description = "LangChain integration for Lumify — load all Lumify sports-intelligence tools (schedules, live scores, odds, betting splits, explainable AI bet confidence) into any LangChain or LangGraph agent via MCP."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Lumify AI", email = "dev@lumify.ai" }]
+keywords = [
+    "langchain",
+    "langgraph",
+    "mcp",
+    "model-context-protocol",
+    "lumify",
+    "sports",
+    "odds",
+    "betting",
+    "ai-agents",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "langchain-mcp-adapters>=0.3.0",
+    "langchain-core>=0.3.0",
+]
+
+[project.urls]
+Homepage = "https://lumify.ai/docs/ai"
+Documentation = "https://lumify.ai/docs/guides#mcp"
+Repository = "https://github.com/lumifyai/lumify"
+Issues = "https://github.com/lumifyai/lumify/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pytest-asyncio>=0.23"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["langchain_lumify"]
+
+[tool.hatch.build.targets.sdist]
+include = ["langchain_lumify", "README.md", "LICENSE", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

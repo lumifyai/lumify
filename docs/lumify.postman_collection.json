@@ -1,0 +1,172 @@
+{
+  "info": {
+    "name": "Lumify Sports Intelligence API",
+    "description": "Agent-ready sports intelligence: schedules, live scores, odds, betting splits, and AI bet intelligence. Set the `base_url` and `api_key` collection variables. Full reference: https://lumify.ai/llms-full.txt",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{api_key}}", "type": "string" }]
+  },
+  "variable": [
+    { "key": "base_url", "value": "https://lumify.ai" },
+    { "key": "api_key", "value": "lmfy-REPLACE_ME" },
+    { "key": "event_id", "value": "1" },
+    { "key": "team_id", "value": "1" },
+    { "key": "player_id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Sports",
+      "item": [
+        { "name": "List sports", "request": { "method": "GET", "url": "{{base_url}}/v1/sports" } },
+        { "name": "Season calendar", "request": { "method": "GET", "url": "{{base_url}}/v1/seasons?sport=mlb" } }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        { "name": "List events", "request": { "method": "GET", "url": "{{base_url}}/v1/events?sport=mlb&status=scheduled&limit=25" } },
+        { "name": "Natural-language search", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"query\": \"live nhl games today\",\n  \"limit\": 5\n}" }, "url": "{{base_url}}/v1/query" } },
+        { "name": "Get event", "request": { "method": "GET", "url": "{{base_url}}/v1/events/{{event_id}}?include_odds=true&include_intelligence=true" } },
+        { "name": "Batch get events", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"event_ids\": [{{event_id}}],\n  \"include_odds\": true\n}" }, "url": "{{base_url}}/v1/events/batch" } },
+        { "name": "Live score", "request": { "method": "GET", "url": "{{base_url}}/v1/events/{{event_id}}/score" } },
+        { "name": "Current odds", "request": { "method": "GET", "url": "{{base_url}}/v1/events/{{event_id}}/odds?bookmaker=all" } },
+        { "name": "Odds history", "request": { "method": "GET", "url": "{{base_url}}/v1/events/{{event_id}}/odds/history" } },
+        { "name": "Betting splits", "request": { "method": "GET", "url": "{{base_url}}/v1/events/{{event_id}}/splits" } },
+        { "name": "Bet intelligence", "request": { "method": "GET", "url": "{{base_url}}/v1/events/{{event_id}}/intelligence" } },
+        { "name": "Live score stream (SSE)", "request": { "method": "GET", "url": "{{base_url}}/v1/events/{{event_id}}/stream?api_key={{api_key}}" } }
+      ]
+    },
+    {
+      "name": "Teams",
+      "item": [
+        { "name": "List teams", "request": { "method": "GET", "url": "{{base_url}}/v1/teams?sport=nba&conference=Eastern" } },
+        { "name": "Get team", "request": { "method": "GET", "url": "{{base_url}}/v1/teams/{{team_id}}" } }
+      ]
+    },
+    {
+      "name": "Players",
+      "item": [
+        { "name": "List players", "request": { "method": "GET", "url": "{{base_url}}/v1/players?sport=tennis&ranked=true" } },
+        { "name": "Get player", "request": { "method": "GET", "url": "{{base_url}}/v1/players/{{player_id}}" } },
+        { "name": "Player events", "request": { "method": "GET", "url": "{{base_url}}/v1/players/{{player_id}}/events" } }
+      ]
+    },
+    {
+      "name": "Agent onboarding",
+      "item": [
+        { "name": "Create API key", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"name\": \"my-agent\",\n  \"scopes\": [\"all\"]\n}" }, "url": "{{base_url}}/api/agent/keys" } },
+        { "name": "List API keys", "request": { "method": "GET", "url": "{{base_url}}/api/agent/keys" } },
+        { "name": "Credit balance", "request": { "method": "GET", "url": "{{base_url}}/api/agent/credits" } },
+        { "name": "List credit packs", "request": { "method": "GET", "url": "{{base_url}}/api/agent/credit-packs" } },
+        { "name": "Top up credits", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"pack_id\": 1\n}" }, "url": "{{base_url}}/api/agent/credits/topup" } }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        { "name": "Create subscription", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"url\": \"https://example.com/webhooks/lumify\",\n  \"event_types\": [\"score\", \"status\", \"line_move\"],\n  \"sport\": \"mlb\"\n}" }, "url": "{{base_url}}/v1/webhooks" } },
+        { "name": "List subscriptions", "request": { "method": "GET", "url": "{{base_url}}/v1/webhooks" } },
+        { "name": "Delete subscription", "request": { "method": "DELETE", "url": "{{base_url}}/v1/webhooks/1" } }
+      ]
+    },
+    {
+      "name": "MCP",
+      "item": [
+        {
+          "name": "initialize",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json, text/event-stream" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"initialize\",\n  \"params\": {\n    \"protocolVersion\": \"2025-06-18\",\n    \"capabilities\": {},\n    \"clientInfo\": { \"name\": \"postman\", \"version\": \"1.0.0\" }\n  }\n}"
+            },
+            "url": "{{base_url}}/mcp"
+          }
+        },
+        {
+          "name": "tools/list",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json, text/event-stream" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" },
+              { "key": "MCP-Protocol-Version", "value": "2025-06-18" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 2,\n  \"method\": \"tools/list\"\n}"
+            },
+            "url": "{{base_url}}/mcp"
+          }
+        },
+        {
+          "name": "ping",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 3,\n  \"method\": \"ping\"\n}"
+            },
+            "url": "{{base_url}}/mcp"
+          }
+        },
+        {
+          "name": "tools/call list_events",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json, text/event-stream" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" },
+              { "key": "MCP-Protocol-Version", "value": "2025-06-18" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 4,\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"list_events\",\n    \"arguments\": { \"sport\": \"mlb\", \"status\": \"scheduled\" }\n  }\n}"
+            },
+            "url": "{{base_url}}/mcp"
+          }
+        },
+        {
+          "name": "tools/call get_event (+odds +intelligence)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json, text/event-stream" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" },
+              { "key": "MCP-Protocol-Version", "value": "2025-06-18" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 5,\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"get_event\",\n    \"arguments\": { \"event_id\": 1, \"include_odds\": true, \"include_intelligence\": true }\n  }\n}"
+            },
+            "url": "{{base_url}}/mcp"
+          },
+          "response": []
+        },
+        {
+          "name": "GET discovery",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": "{{base_url}}/mcp"
+          }
+        }
+      ]
+    }
+  ]
+}

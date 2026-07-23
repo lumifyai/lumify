@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.lumify/sports-intelligence",
+  "title": "Lumify Sports Intelligence",
+  "description": "Schedules, scores, odds, splits & explainable AI bet confidence — 8+ sports, free instant key.",
+  "version": "1.0.1",
+  "websiteUrl": "https://lumify.ai",
+  "repository": {
+    "url": "https://github.com/lumifyai/lumify",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://lumify.ai/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Lumify API key as a Bearer token ('Bearer lmfy-...'). Get one free in seconds with no signup at https://lumify.ai/docs/ai, or create an account key at https://lumify.ai/api-keys. The server never stores your key.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

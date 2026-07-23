@@ -1,0 +1,70 @@
+{
+  "name": "n8n-nodes-lumify",
+  "version": "0.2.6",
+  "description": "n8n community node for Lumify — the agent-ready sports intelligence API. Schedules, live scores, odds, public betting splits, and explainable AI bet confidence across 8+ sports, in your n8n workflows.",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "lumify",
+    "sports",
+    "sports-data",
+    "odds",
+    "betting",
+    "sports-betting"
+  ],
+  "license": "MIT",
+  "homepage": "https://lumify.ai",
+  "author": {
+    "name": "Lumify AI",
+    "email": "dev@lumify.ai"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumifyai/lumify.git",
+    "directory": "clients/n8n-nodes-lumify"
+  },
+  "bugs": {
+    "url": "https://github.com/lumifyai/lumify/issues"
+  },
+  "engines": {
+    "node": ">=18.10"
+  },
+  "main": "dist/nodes/Lumify/Lumify.node.js",
+  "scripts": {
+    "build": "tsc && node scripts/copy-icons.mjs",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials",
+    "lintfix": "eslint nodes credentials --fix",
+    "pretest": "npm run build",
+    "test": "node --test test/*.test.js",
+    "prepublishOnly": "npm run build && npm run lint"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/LumifyApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Lumify/Lumify.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.7",
+    "n8n-workflow": "^2.16.0",
+    "prettier": "^3.2.0",
+    "typescript": "^5.3.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
