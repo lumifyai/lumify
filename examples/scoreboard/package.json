@@ -1,0 +1,34 @@
+{
+  "name": "lumify-live-scoreboard-example",
+  "version": "1.0.0",
+  "description": "Live sports scoreboard demo powered by the Lumify API",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@lumifyai/sdk": "^0.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "keywords": [
+    "lumify",
+    "sports",
+    "scoreboard",
+    "live-scores",
+    "sse",
+    "example"
+  ],
+  "homepage": "https://lumify.ai/use-cases/live-scoreboard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumifyai/lumify.git",
+    "directory": "examples/scoreboard"
+  },
+  "license": "MIT"
+}

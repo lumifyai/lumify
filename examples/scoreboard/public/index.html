@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Scoreboard — Lumify example</title>
+  <meta name="description" content="Live sports scoreboard demo powered by the Lumify API." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-logo" href="https://lumify.ai" target="_blank" rel="noopener" aria-label="Lumify">
+        <img src="/logo.webp" alt="Lumify" width="132" height="32" />
+      </a>
+      <div>
+        <h1>Live Scoreboard</h1>
+        <p class="subtitle">Open-source example powered by the Lumify API</p>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="sport-filter">
+        <span>Sport</span>
+        <select id="sport-select" aria-label="Filter by sport">
+          <option value="">All live</option>
+          <option value="nba">NBA</option>
+          <option value="nfl">NFL</option>
+          <option value="mlb">MLB</option>
+          <option value="nhl">NHL</option>
+          <option value="soccer">Soccer</option>
+          <option value="tennis">Tennis</option>
+        </select>
+      </label>
+      <div class="status-pill" id="connection-status" data-state="idle">
+        <span class="dot"></span>
+        <span class="label">Starting…</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="banner" id="empty-banner" hidden>
+      <strong>No live games right now.</strong>
+      <span>The board will refresh automatically when events go <code>inprogress</code>. Try another sport, or check back during game time.</span>
+    </section>
+    <section class="banner error" id="error-banner" hidden>
+      <strong>Couldn’t load live games.</strong>
+      <span id="error-detail"></span>
+    </section>
+    <div class="board" id="board" aria-live="polite"></div>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Example app for
+      <a href="https://lumify.ai/use-cases/live-scoreboard" target="_blank" rel="noopener">Build a live sports scoreboard with the Lumify API</a>.
+      Source:
+      <a href="https://github.com/lumifyai/lumify/tree/main/examples/scoreboard" target="_blank" rel="noopener">github.com/lumifyai/lumify/examples/scoreboard</a>.
+    </p>
+  </footer>
+
+  <script type="module" src="/scoreboard.js"></script>
+</body>
+</html>

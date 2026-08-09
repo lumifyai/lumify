@@ -1,0 +1,14 @@
+{
+  "name": "lumify-sports-intelligence",
+  "version": "1.0.0",
+  "description": "Agent-ready sports intelligence over MCP: schedules, live scores, odds, betting splits, and explainable AI bet confidence — 8+ sports. Free instant key, no signup at lumify.ai/docs/ai.",
+  "author": {
+    "name": "Lumify",
+    "email": "hello@lumify.ai",
+    "url": "https://lumify.ai"
+  },
+  "homepage": "https://lumify.ai/docs/ai",
+  "repository": "https://github.com/lumifyai/lumify",
+  "license": "MIT",
+  "keywords": ["sports", "mcp", "odds", "betting", "agents", "api"]
+}

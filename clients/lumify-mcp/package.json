@@ -1,0 +1,45 @@
+{
+  "name": "@lumifyai/mcp",
+  "version": "0.1.0",
+  "description": "Local stdio bridge to the hosted Lumify sports-intelligence MCP server (schedules, live scores, odds, betting splits, AI bet intelligence).",
+  "type": "module",
+  "bin": {
+    "lumify-mcp": "bin/lumify-mcp.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "start": "node bin/lumify-mcp.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "lumify",
+    "sports",
+    "odds",
+    "betting",
+    "sports-data",
+    "ai-agents"
+  ],
+  "homepage": "https://lumify.ai/docs/guides#mcp",
+  "bugs": {
+    "url": "https://github.com/lumifyai/lumify/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumifyai/lumify.git",
+    "directory": "clients/lumify-mcp"
+  },
+  "license": "MIT"
+}

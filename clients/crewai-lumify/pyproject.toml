@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "crewai-lumify"
+version = "0.1.0"
+description = "CrewAI integration for Lumify Sports Intelligence — connect the hosted Lumify MCP (schedules, live scores, odds, betting splits, explainable AI bet confidence) to any CrewAI agent in one call."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Lumify AI", email = "dev@lumify.ai" }]
+keywords = [
+    "crewai",
+    "mcp",
+    "model-context-protocol",
+    "lumify",
+    "sports",
+    "odds",
+    "betting",
+    "ai-agents",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    # MCPServerHTTP lives in crewai.mcp (DSL mcps= field) since ~1.10.
+    # 1.10.0 itself is yanked on PyPI ("miss behaving when running on crewai
+    # AMP"), so the floor is 1.10.1 to avoid resolving to a known-bad release.
+    "crewai>=1.10.1",
+]
+
+[project.urls]
+Homepage = "https://lumify.ai/docs/ai"
+Documentation = "https://lumify.ai/docs/guides#mcp"
+Repository = "https://github.com/lumifyai/lumify"
+Issues = "https://github.com/lumifyai/lumify/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["crewai_lumify"]
+
+[tool.hatch.build.targets.sdist]
+include = ["crewai_lumify", "README.md", "LICENSE", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llamaindex-lumify"
+version = "0.1.0"
+description = "LlamaIndex integration for Lumify — load all Lumify sports-intelligence tools (schedules, live scores, odds, betting splits, explainable AI bet confidence) into any LlamaIndex agent via MCP."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Lumify AI", email = "dev@lumify.ai" }]
+keywords = [
+    "llamaindex",
+    "llama-index",
+    "mcp",
+    "model-context-protocol",
+    "lumify",
+    "sports",
+    "odds",
+    "betting",
+    "ai-agents",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "llama-index-tools-mcp>=0.4.0",
+    "llama-index-core>=0.13.0",
+    # mcp 2.0 removed RequestContext from mcp.shared.context; tools-mcp 0.4.x
+    # still imports it (matches the same cap langchain-lumify uses). Revisit
+    # once llama-index-tools-mcp bumps its own mcp>=2 support.
+    "mcp>=1.24.0,<2",
+]
+
+[project.urls]
+Homepage = "https://lumify.ai/docs/ai"
+Documentation = "https://lumify.ai/docs/guides#mcp"
+Repository = "https://github.com/lumifyai/lumify"
+Issues = "https://github.com/lumifyai/lumify/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pytest-asyncio>=0.23"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["llamaindex_lumify"]
+
+[tool.hatch.build.targets.sdist]
+include = ["llamaindex_lumify", "README.md", "LICENSE", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
