@@ -21,7 +21,7 @@ Everything here authenticates with a Lumify API key (`lmfy-...`).
 - **Fastest — no signup:** grab a free **instant trial key** at
   **<https://lumify.ai/docs/ai>** (click "Get instant trial key"). No account,
   email, or credit card — 100 credits, 14-day expiry. Paste it and start calling.
-- **Persistent account:** create a key at **<https://lumify.ai/api-keys>** —
+- **Persistent account:** create a key at **<https://lumify.ai/register>** —
   free trial with 1,000 credits, no credit card required.
 
 ```bash
@@ -122,8 +122,8 @@ npm start                             # → http://localhost:3000
 
 ## Documentation
 
-- **API reference:** <https://lumify.ai/docs/reference>
-- **Guides (incl. MCP):** <https://lumify.ai/docs/guides>
+- **API reference:** <https://lumify.ai/docs>
+- **Guides (incl. MCP):** <https://lumify.ai/docs/guides#mcp>
 - **Quick start:** [`docs/getting-started/quick-start.md`](./docs/getting-started/quick-start.md)
 - **Agent cookbook:** [`docs/agent-cookbook.md`](./docs/agent-cookbook.md)
 - **Postman collection:** [`docs/lumify.postman_collection.json`](./docs/lumify.postman_collection.json)
