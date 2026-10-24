@@ -1,6 +1,6 @@
 # Lumify — Client SDKs & MCP
 
-[![smithery badge](https://smithery.ai/badge/lumify/sports-intelligence)](https://smithery.ai/servers/lumify/sports-intelligence)
+[![LightNow capabilities](https://lightnow.ai/badge/ai.lumify/sports-intelligence)](https://lightnow.ai/servers/ai.lumify/sports-intelligence)
 [![lumify MCP server](https://glama.ai/mcp/servers/lumifyai/lumify/badges/score.svg)](https://glama.ai/mcp/servers/lumifyai/lumify)
 
 Official client libraries and [Model Context Protocol](https://modelcontextprotocol.io)
